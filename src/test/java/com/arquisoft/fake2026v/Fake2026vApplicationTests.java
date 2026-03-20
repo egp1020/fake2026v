@@ -21,7 +21,7 @@ class Fake2026vApplicationTests {
 
 	@Test
 	void version() {
-		assertEquals("VERSION IS 1.0.0", dataController.version());
+		assertEquals("The actual version is 1.0.0", dataController.version());
 	}
 
 	@Test
