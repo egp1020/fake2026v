@@ -23,7 +23,7 @@ jobs:
       - name: Run Tests
         run: mvn -B test
 
-    #Sonar's Job
+  #Sonar's Job
   sonar:
     #Depends on test's job
     needs: tests
