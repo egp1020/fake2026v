@@ -1,0 +1,24 @@
+name: CI/CD PIPELINE # workflow name
+on:
+  workflow_dispatch: # Manually trigger workflow runs
+  push: # Trigger the workflow on push from the main branch
+    branches:
+      - main
+jobs:
+  tests: # Test's job
+    name: Unit tests
+    runs-on: ubuntu-latest # Run on Ubuntu using the lastest version
+    steps: # Job's steps
+      - uses: actions/checkout@v1 # Check-out your repository under @GITHUB_WORKSPACE, so your workflow can access it
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: '17'
+      - name: Cache Maven packages
+        uses: actions/cache@v3 # This action allows caching dependencies and build outputs to improve workflow execution time
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Run Tests
+        run: mvn -B test
